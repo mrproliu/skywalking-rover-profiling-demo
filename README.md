@@ -3,4 +3,5 @@
 |Environment|Version|
 |-----|------|
 |Kubernetes|Google Kubernetes Engine|
-|Istio|1.13.1|
+|Istioctl|1.13.1|
+|helm|v3.7.1|
