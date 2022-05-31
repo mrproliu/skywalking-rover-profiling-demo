@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service1-conf
+data:
+  nginx.conf: |
+    user nginx;
+    worker_processes  auto;
+    events {
+      worker_connections  10240;
+    }
+    http {
+      server {
+        listen       9999;
+        server_name  0.0.0.0;
+        access_log off;
+        location / {
+          return 200 '';
+          add_header Content-Type text/plain;
+        }
+      }
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service1
+spec:
+  selector:
+    matchLabels:
+      app: service1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service1
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 9999
+          volumeMounts:
+            - name: service1-conf
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+      nodeSelector:
+        role: app
+      volumes:
+        - name: service1-conf
+          configMap:
+            name: service1-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1
+spec:
+  type: NodePort
+  ports:
+    - port: 9999
+      protocol: TCP
+      targetPort: 9999
+  selector:
+    app: service1
