@@ -17,3 +17,6 @@ helm -n istio-system install skywalking skywalking \
                        --set oap.image.pullPolicy=Always \
                        --set oap.image.repository=gcr.io/hanliu-20211231-155028/oap \
                        --set oap.storageType=elasticsearch
+
+curdir=$(cd $(dirname $0); pwd)
+kubectl apply -f $curdir/rover.yaml
