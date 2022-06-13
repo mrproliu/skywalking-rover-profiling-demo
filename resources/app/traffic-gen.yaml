@@ -17,9 +17,7 @@ spec:
       labels:
         app: trafficgenerator
     spec:
-      nodeSelector:
-        role: pressure
       containers:
         - name: trafficgenerator
           image: williamyeh/wrk
-          command: ["wrk", "-t200", "-c5000", "-d2000m", "http://service1.test:9999/"]
+          command: ["wrk", "-t200", "-c5000", "-d2000m", "http://service1:9999/"]

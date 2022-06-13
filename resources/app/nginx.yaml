@@ -46,8 +46,6 @@ spec:
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
               readOnly: true
-      nodeSelector:
-        role: app
       volumes:
         - name: service1-conf
           configMap:

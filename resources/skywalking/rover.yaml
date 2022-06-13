@@ -63,7 +63,6 @@ spec:
       containers:
         - name: rover
           image: apache/skywalking-rover:0.2.0
-          imagePullPolicy: Always
           securityContext:
             capabilities:
               add:
@@ -92,9 +91,9 @@ spec:
             - name: ROVER_HOST_MAPPING
               value: /host
             - name: ROVER_PROCESS_DISCOVERY_KUBERNETES_ANALYZER_K8S_SERVICE_PROCESS_NAME
-              value: {{.Process.ExeName}}-{{.Process.Pid}}
+              value: "{{.Process.ExeName}}-{{.Process.Pid}}"
             - name: ROVER_PROCESS_DISCOVERY_KUBERNETES_ANALYZER_ISTIO_APPLICATION_PROCESS_NAME
-              value: {{.Process.ExeName}}-{{.Process.Pid}}
+              value: "{{.Process.ExeName}}-{{.Process.Pid}}"
       hostPID: true
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
