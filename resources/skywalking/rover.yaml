@@ -62,8 +62,7 @@ spec:
       serviceAccountName: skywalking-rover-sa
       containers:
         - name: rover
-#          image: ghcr.io/apache/skywalking-rover/skywalking-rover:271e2cd5ae3abd96d127499ce19a55d59111d7be
-          image: gcr.io/hanliu-20211231-155028/skywalking-rover:latest
+          image: apache/skywalking-rover:0.2.0
           imagePullPolicy: Always
           securityContext:
             capabilities:
